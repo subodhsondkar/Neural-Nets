@@ -1,0 +1,4 @@
+1. Weight initialisation optimisation
+2. Inverse proportionality of weight updation wrt number of weights
+3. Implementing dropouts
+

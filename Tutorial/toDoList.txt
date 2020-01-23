@@ -1,0 +1,8 @@
+Things to do for the neural nets project:
+	n optimisation
+	Data to list conversion
+	Early stopping
+	Batching data
+		In weight optimisation, letting cost decrease gradually with each train case being given by resetting cutoff cleverly.
+	Epochs
+

@@ -1,0 +1,6 @@
+0. Basic structure of code- perceptron, bias, non-linearity function, cost
+1. 1 N (neuron) in OL (output layer)
+2. No HL (hidden layers) in NN (neural network)
+3. Gradient descent
+4. Learning rate
+
