@@ -2,12 +2,12 @@ import random
 import time
 from matplotlib import pyplot
 
-# ReLU: non-linearity function
-def ReLU(x):
+# relu: non-linearity function
+def relu(x):
     if x > 0:
         return x
     return x / 10
-def ReLUdiff(x):
+def relu_diff(x):
     if x >= 0:
         return 1
     return 0.1
@@ -179,7 +179,7 @@ while testcost >= cutoff:
                     A[i + 1][j] = 0
                     for k in range(layersize[i]):
                         A[i + 1][j] += M[i][k] * A[i][k] * W[i][j][k]
-                    A[i + 1][j] = ReLU(A[i + 1][j] + B[i][j])
+                    A[i + 1][j] = relu(A[i + 1][j] + B[i][j])
         # Calculating new cost from updated perceptron values
         for i in range(layersize[-1]):
             cost += (trainanswer[count][i] - A[-1][i]) ** 2
@@ -190,16 +190,16 @@ while testcost >= cutoff:
             for j in range(layersize[- i - 2]):
                 D[- i - 2][j] = 0
                 for k in range(layersize[- i - 1]):
-                    D[- i - 2][j] += D[- i - 1][k] * ReLUdiff(M[- i - 1][k] * A[- i - 1][k]) * W[- i - 1][k][j]
+                    D[- i - 2][j] += D[- i - 1][k] * relu_diff(M[- i - 1][k] * A[- i - 1][k]) * W[- i - 1][k][j]
         # Updating weights with the optimisation of reducing weights inversely proportional to the number of weights that'll affect the cost
         for i in range(len(layersize) - 1):
             for j in range(layersize[- i - 1]):
                 for k in range(layersize[- i - 2]):
-                    W[- i - 1][j][k] -= D[- i - 1][j] * ReLUdiff(M[- i - 1][j] * A[- i - 1][j]) * A[- i - 2][k] * M[- i - 2][k] / (layersize[- i - 2] ** 2)
+                    W[- i - 1][j][k] -= D[- i - 1][j] * relu_diff(M[- i - 1][j] * A[- i - 1][j]) * A[- i - 2][k] * M[- i - 2][k] / (layersize[- i - 2] ** 2)
         # Updating biases
         for i in range(len(layersize) - 1):
             for j in range(layersize[ - i - 1]):
-                B[- i - 1][j] -= D[- i - 1][j] * ReLUdiff(M[- i - 1][j] * A[- i - 1][j])
+                B[- i - 1][j] -= D[- i - 1][j] * relu_diff(M[- i - 1][j] * A[- i - 1][j])
     print("Average training cost:", int(cost * 1000 / trainsize))
     print("Sum of B:", sum(B[-1]), "Sum of W:", sum(W[-1][-1]))
     # Testing on known and unknown data
@@ -213,7 +213,7 @@ while testcost >= cutoff:
                 A[i + 1][j] = 0
                 for k in range(layersize[i]):
                     A[i + 1][j] += A[i][k] * W[i][j][k]
-                A[i + 1][j] = ReLU(A[i + 1][j] + B[i][j])
+                A[i + 1][j] = relu(A[i + 1][j] + B[i][j])
         for i in range(layersize[-1]):
             testcost += (A[-1][i] - trainanswer[testcount][i]) ** 2
             plotx += [trainanswer[testcount][i]]
@@ -282,7 +282,7 @@ for count in range(datasize):
             A[i + 1][j] = 0
             for k in range(layersize[i]):
                 A[i + 1][j] += A[i][k] * W[i][j][k]
-            A[i + 1][j] = ReLU(A[i + 1][j] + B[i][j])
+            A[i + 1][j] = relu(A[i + 1][j] + B[i][j])
     for i in range(layersize[-1]):
         testcost += (A[-1][i] - trainanswer[count][i]) ** 2
         plotx += [trainanswer[count][i]]

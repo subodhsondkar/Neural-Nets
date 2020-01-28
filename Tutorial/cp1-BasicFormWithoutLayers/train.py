@@ -1,11 +1,11 @@
 import time
 
-# ReLU: Non-linearity function
-def ReLU(x):
+# relu: Non-linearity function
+def relu(x):
     if x > 0:
         return x
     return 0
-def ReLUDiff(x):
+def relu_diff(x):
     if x >= 0:
         return 1
     return 0
@@ -33,13 +33,13 @@ while cost >= cutoff:
     z = 0
     for i in range(s):
         z += A[i] * W[i]
-    Y = ReLU(z + b)
+    Y = relu(z + b)
     cost = (Y - y) ** 2
     # Changing weights for better cost (gradient descent)
     for i in range(s):
-        W[i] -= n * (Y - y) * ReLUDiff(Y) * A[i]
+        W[i] -= n * (Y - y) * relu_diff(Y) * A[i]
     # Changing bias for better cost (gradient descent)
-    b -= n * (Y - y) * ReLUDiff(Y)
+    b -= n * (Y - y) * relu_diff(Y)
     steps += 1
 print("\n---SUMMARY---")
 print("Final cost:", cost)
